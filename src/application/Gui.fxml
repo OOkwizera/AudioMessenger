@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="290.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="290.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <tabs>
     <Tab text="New">
       <content>
@@ -16,14 +16,14 @@
                <children>
                   <Circle fill="WHITE" layoutX="145.0" layoutY="166.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fill="#f52917" layoutX="145.0" layoutY="166.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-                  <TextField layoutX="71.0" layoutY="28.0" prefHeight="29.0" prefWidth="148.0" promptText="Name your Recording" />
+                  <TextField fx:id="audioName" layoutX="71.0" layoutY="28.0" prefHeight="29.0" prefWidth="148.0" promptText="Name your Recording" />
                   <Text layoutX="109.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" wrappingWidth="71.21875">
                      <font>
                         <Font size="23.0" />
                      </font>
                   </Text>
-                  <Button fx:id="record" layoutX="217.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#yes" text="Button" />
-                  <Button fx:id="stop" layoutX="188.0" layoutY="234.0" mnemonicParsing="false" onAction="#no" text="Button" />
+                  <Button fx:id="record" layoutX="217.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#yes" text="Start" />
+                  <Button fx:id="stop" layoutX="218.0" layoutY="223.0" mnemonicParsing="false" onAction="#no" text="Stop" />
                </children></AnchorPane>
       </content>
     </Tab>

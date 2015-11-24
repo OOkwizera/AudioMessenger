@@ -13,12 +13,13 @@ public class Controller {
 	
 	@FXML
 	Button record;
-	
 	@FXML
 	Button stop;
-	
 	@FXML
 	TabPane tabPane;
+	@FXML
+	TextField audioName;
+	
 	
 	@FXML
 	void initialize() {
@@ -27,12 +28,19 @@ public class Controller {
 	
 	
 	@FXML
-	void yes() {
+	void yes() throws InterruptedException {
 		audio.start();
+		if (getAudioName() != "") {
+			audio.setAudioFileName(getAudioName());
+		}
 	}
 	
 	@FXML
 	void no() {
 		audio.endCapture();
+	}
+	
+	String getAudioName() {
+		return audioName.getText();
 	}
 }

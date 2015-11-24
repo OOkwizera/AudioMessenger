@@ -11,9 +11,9 @@ public class AudioCapture {
 
 	
 	public AudioCapture() {
-		this.audioFile = new File("/Users/kvgarimella/Desktop/audioFile.wav");
+		this.audioFile = new File("/Users/olliekwizera/Desktop/record.wav");
 		this.fileType = AudioFileFormat.Type.WAVE;
-		this.line = line;
+		
 	}
 	
 	public AudioFormat newFormat() {
@@ -28,18 +28,33 @@ public class AudioCapture {
 		return audioFormat;
 	}
 	
-	public void start() {
+	public void start() throws InterruptedException {
 		try {
 			AudioFormat audioFormat = newFormat();
 			DataLine.Info info = new DataLine.Info(TargetDataLine.class, audioFormat);
 			line = (TargetDataLine) AudioSystem.getLine(info);
 			line.open(audioFormat);
 			line.start();
-			AudioInputStream audioInputStream = new AudioInputStream(line);
-			AudioSystem.write(audioInputStream, fileType, audioFile);	
+			//we need a different thread to take care of writing the sound to a file.
+			
+			Thread thread = new Thread() 
+			{
+				@Override public void run() {
+					AudioInputStream audioStream = new AudioInputStream (line);
+					try { 
+						AudioSystem.write(audioStream, AudioFileFormat.Type.WAVE, audioFile);
+					} catch (IOException e) {e.printStackTrace();}
+					
+					System.out.println("Stopped recording");
+				}
+			};
+			
+			thread.start();
+			Thread.sleep(15000);
+			line.stop();
+			line.close();
+				
 		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -51,7 +66,11 @@ public class AudioCapture {
 		System.out.println("Done recording.");
 	}
 	
+	public void setAudioFileName(String name) {
 	
+		File newAudio = new File (audioFile.getParent() + "/" + name + ".wav");
+		audioFile.renameTo(newAudio);
+	}
 	
 	
 }
