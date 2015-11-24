@@ -11,7 +11,7 @@ public class AudioCapture {
 
 	
 	public AudioCapture() {
-		this.audioFile = new File("/Users/olliekwizera/Desktop/record.wav");
+		this.audioFile = new File("/Users/reedmershon/Desktop/record.wav");
 		this.fileType = AudioFileFormat.Type.WAVE;
 		
 	}

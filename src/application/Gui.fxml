@@ -24,6 +24,7 @@
                   </Text>
                   <Button fx:id="record" layoutX="217.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#yes" text="Start" />
                   <Button fx:id="stop" layoutX="218.0" layoutY="223.0" mnemonicParsing="false" onAction="#no" text="Stop" />
+                  <Button fx:id="play" layoutX="14.0" layoutY="223.0" mnemonicParsing="false" onAction="#play" text="Play" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -42,7 +43,7 @@
                         <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="21.0" text="-" />
                      </children>
                   </VBox>
-                  <Polygon fill="DODGERBLUE" layoutX="223.0" layoutY="98.0" rotate="90.0" scaleX="0.44" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
+                  <Polygon fill="DODGERBLUE" layoutX="223.0" layoutY="98.0" onMouseClicked="#play" rotate="90.0" scaleX="0.44" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
                     <points>
                       <Double fx:value="-50.0" />
                       <Double fx:value="40.0" />

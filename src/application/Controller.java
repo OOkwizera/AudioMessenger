@@ -1,6 +1,7 @@
 package application;
 
 import Audio.AudioCapture;
+import Audio.AudioPlay;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.shape.*;
@@ -10,11 +11,14 @@ import javafx.scene.shape.*;
 public class Controller {
 	
 	AudioCapture audio = new AudioCapture();
+	AudioPlay aPlay = new AudioPlay();
 	
 	@FXML
 	Button record;
 	@FXML
 	Button stop;
+	@FXML
+	Button play;
 	@FXML
 	TabPane tabPane;
 	@FXML
@@ -44,5 +48,10 @@ public class Controller {
 	
 	String getAudioName() {
 		return audioName.getText();
+	}
+
+	@FXML
+	void play() {
+		aPlay.playSound(getAudioName());
 	}
 }
