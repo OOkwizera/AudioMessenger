@@ -11,7 +11,9 @@ public class AudioCapture {
 
 	
 	public AudioCapture() {
-		this.audioFile = new File("/Users/reedmershon/Desktop/record.wav");
+		String hi = System.getProperty("user.dir");
+		System.out.println(hi);
+		this.audioFile = new File(System.getProperty("user.dir") + "/record.wav");
 		this.fileType = AudioFileFormat.Type.WAVE;
 		
 	}
@@ -68,7 +70,8 @@ public class AudioCapture {
 	
 	public void setAudioFileName(String name) {
 	
-		File newAudio = new File (audioFile.getParent() + "/" + name + ".wav");
+		File newAudio = new File (System.getProperty("user.dir") + "/" + name + ".wav");
+		System.out.println(audioFile.getParent());
 		audioFile.renameTo(newAudio);
 	}
 	
