@@ -32,6 +32,8 @@ public class Controller {
 		audio.start();
 		if (getAudioName() != "") {
 			audio.setAudioFileName(getAudioName());
+		} else {
+			audio.setAudioFileName("Unknown");
 		}
 	}
 	
