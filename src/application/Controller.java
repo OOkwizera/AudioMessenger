@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+
 import Audio.AudioCapture;
 import Audio.AudioPlay;
 import javafx.fxml.FXML;
@@ -23,11 +25,21 @@ public class Controller {
 	TabPane tabPane;
 	@FXML
 	TextField audioName;
+	@FXML
+	ListView<String> displayAudios;
 	
 	
 	@FXML
 	void initialize() {
 		tabPane.autosize();
+		File[] files = new File(System.getProperty("user.dir") + "src/AudioFiles").listFiles();
+		//If this pathname does not denote a directory, then listFiles() returns null. 
+
+		for (File file : files) {
+		    if (file.isFile()) {
+		        displayAudios.getItems().add(file.getName());
+		    }
+		}
 	}
 	
 	
@@ -52,6 +64,7 @@ public class Controller {
 
 	@FXML
 	void play() {
+		
 		aPlay.playSound(getAudioName());
 	}
 }
