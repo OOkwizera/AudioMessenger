@@ -68,7 +68,7 @@ public class AudioCapture {
 	
 	public void setAudioFileName(String name) {
 	
-		File newAudio = new File (audioFile.getParent() + "/src/AudioFiles/" + name + ".wav");
+		File newAudio = new File (System.getProperty("user.dir") + "/src/AudioFiles/" + name + ".wav");
 		audioFile.renameTo(newAudio);
 	}
 	
