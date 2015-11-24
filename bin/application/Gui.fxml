@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="290.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+  <tabs>
+    <Tab text="New">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Circle fill="WHITE" layoutX="145.0" layoutY="166.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#f52917" layoutX="145.0" layoutY="166.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+                  <TextField layoutX="71.0" layoutY="28.0" prefHeight="29.0" prefWidth="148.0" promptText="Name your Recording" />
+                  <Text layoutX="109.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" wrappingWidth="71.21875">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="record" layoutX="217.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#yes" text="Button" />
+                  <Button fx:id="stop" layoutX="188.0" layoutY="234.0" mnemonicParsing="false" onAction="#no" text="Button" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab text="Recordings">
+         <content>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox layoutX="14.0" layoutY="22.0" prefHeight="288.0" prefWidth="147.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Audio Files" textAlignment="CENTER" wrappingWidth="147.8125">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <ListView prefHeight="200.0" prefWidth="143.0" />
+                        <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="21.0" text="-" />
+                     </children>
+                  </VBox>
+                  <Polygon fill="DODGERBLUE" layoutX="223.0" layoutY="98.0" rotate="90.0" scaleX="0.44" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
+                    <points>
+                      <Double fx:value="-50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="0.0" />
+                      <Double fx:value="-60.0" />
+                    </points>
+                  </Polygon>
+                  <Button layoutX="189.0" layoutY="166.0" mnemonicParsing="false" text="Share" />
+               </children>
+            </Pane>
+         </content>
+    </Tab>
+      <Tab text="After recording">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Circle fill="WHITE" layoutX="145.0" layoutY="166.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text layoutX="108.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:30" wrappingWidth="73.21875">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Text>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="133.0" layoutY="154.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
+                  <Text layoutX="33.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" wrappingWidth="44.0439453125">
+                     <font>
+                        <Font size="42.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="227.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="II">
+                     <font>
+                        <Font name="System Bold" size="42.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="82.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Named Recording">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
