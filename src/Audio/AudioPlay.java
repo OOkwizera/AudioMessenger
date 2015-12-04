@@ -14,7 +14,7 @@ public class AudioPlay {
     //random comment
     public void playSound(String name) {
         try {
-            File file = new File(System.getProperty("user.dir") + "/src/AudioFiles/" + name + ".wav");
+            File file = new File(System.getProperty("user.dir") + "/src/AudioFiles/" + name );
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file.getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
