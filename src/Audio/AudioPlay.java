@@ -9,6 +9,8 @@ import java.io.IOException;
  */
 public class AudioPlay {
 
+    private long clipTime;
+
     //random comment
     public void playSound(String name) {
         try {
@@ -17,6 +19,8 @@ public class AudioPlay {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
+
+
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -24,5 +28,15 @@ public class AudioPlay {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+    }
+
+    private void pauseSound(Clip clip) {
+        clipTime = clip.getMicrosecondPosition();
+        clip.stop();
+    }
+
+    private void resumeSound(Clip clip) {
+        clip.setMicrosecondPosition(clipTime);
+        clip.start();
     }
 }
