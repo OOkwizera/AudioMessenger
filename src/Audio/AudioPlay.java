@@ -10,17 +10,18 @@ import java.io.IOException;
 public class AudioPlay {
 
     private long clipTime;
+    static long done = 0;
+    private Clip clip;
+    private int plays = 0;
 
     //random comment
-    public void playSound(String name) {
+    private void playSound(String name) throws LineUnavailableException {
         try {
             File file = new File(System.getProperty("user.dir") + "/src/AudioFiles/" + name );
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file.getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-
-
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -30,13 +31,43 @@ public class AudioPlay {
         }
     }
 
-    private void pauseSound(Clip clip) {
+    public void audioPlay(String name) {
+        try {
+            if (plays == 0) {
+                playSound(name);
+                plays += 1;
+            } else {
+                if (!isDone()) {
+                    resumeSound();
+                } else {
+                    clipTime = done;
+                    plays -= 1;
+                }
+
+            }
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void pauseSound() {
         clipTime = clip.getMicrosecondPosition();
         clip.stop();
     }
 
-    private void resumeSound(Clip clip) {
+    private void resumeSound() {
         clip.setMicrosecondPosition(clipTime);
         clip.start();
+    }
+
+    private boolean isDone() {
+        long clipLen = clip.getMicrosecondLength();
+        long clipPos = clip.getMicrosecondPosition();
+        if (clipPos >= clipLen) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.shape.*;
 
 
-
 public class Controller {
 	
 	AudioCapture audio = new AudioCapture();
@@ -20,7 +19,11 @@ public class Controller {
 	@FXML
 	Button stop;
 	@FXML
-	Button play;
+	Shape play;
+	@FXML
+	Shape pause;
+	@FXML
+	Shape pause1;
 	@FXML
 	Button discard;
 	@FXML
@@ -29,13 +32,16 @@ public class Controller {
 	TextField audioName;
 	@FXML
 	ListView<String> displayAudios;
-	
-	
+
+
 	@FXML
 	void initialize() {
-		
 		tabPane.autosize();
 		refresh();
+		pause.setVisible(false);
+		pause.setDisable(true);
+		pause1.setVisible(false);
+		pause1.setDisable(true);
 	}
 	
 	
@@ -63,9 +69,33 @@ public class Controller {
 	void play() {
 		String name = displayAudios.getSelectionModel().getSelectedItem();
 		if (!name.equals("")) {
-			aPlay.playSound(name);
+			aPlay.audioPlay(name);
+			pauseButtons();
 		}
-		
+	}
+
+	@FXML
+	void pauseSound() {
+		aPlay.pauseSound();
+		playButtons();
+	}
+
+	void playButtons() {
+		play.setDisable(false);
+		play.setVisible(true);
+		pause.setDisable(true);
+		pause.setVisible(false);
+		pause1.setDisable(true);
+		pause1.setVisible(false);
+	}
+
+	void pauseButtons() {
+		play.setDisable(true);
+		play.setVisible(false);
+		pause.setDisable(false);
+		pause.setVisible(true);
+		pause1.setDisable(false);
+		pause1.setVisible(true);
 	}
 	
 	@FXML
