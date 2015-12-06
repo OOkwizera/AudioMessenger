@@ -70,7 +70,11 @@ public class Controller {
 		String name = displayAudios.getSelectionModel().getSelectedItem();
 		if (!name.equals("")) {
 			aPlay.audioPlay(name);
-			pauseButtons();
+			if (aPlay.isDone()) {
+				playButtons();
+			} else {
+				pauseButtons();
+			}
 		}
 	}
 
