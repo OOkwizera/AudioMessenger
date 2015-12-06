@@ -14,8 +14,10 @@ public class AudioPlay {
     private Clip clip;
     private int plays = 0;
 
+    private String currentName = "";
+
     //random comment
-    private void playSound(String name) throws LineUnavailableException {
+    private void playSound(String name){
         try {
             File file = new File(System.getProperty("user.dir") + "/src/AudioFiles/" + name );
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file.getAbsoluteFile());
@@ -32,7 +34,17 @@ public class AudioPlay {
     }
 
     public void audioPlay(String name) {
-        try {
+
+        if (!currentName.equals(name)) {
+            if (clip != null) {
+                pauseSound();
+            }
+            currentName = name;
+            plays = 0;
+            audioPlay(currentName);
+
+        }
+        else {
             if (plays == 0) {
                 playSound(name);
                 plays += 1;
@@ -43,11 +55,9 @@ public class AudioPlay {
                     clipTime = done;
                     plays -= 1;
                 }
-
             }
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
         }
+
 
     }
 
@@ -61,7 +71,7 @@ public class AudioPlay {
         clip.start();
     }
 
-    private boolean isDone() {
+    public boolean isDone() {
         long clipLen = clip.getMicrosecondLength();
         long clipPos = clip.getMicrosecondPosition();
         if (clipPos >= clipLen) {
@@ -70,4 +80,9 @@ public class AudioPlay {
             return false;
         }
     }
+
+    private void setDone() {
+
+    }
+
 }
