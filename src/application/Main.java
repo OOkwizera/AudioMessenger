@@ -14,7 +14,7 @@ public class Main extends Application {
 	    public void start(Stage primaryStage) throws Exception{
 	        TabPane root = FXMLLoader.load(getClass().getResource("Gui.fxml"));
 	        primaryStage.setTitle("AudioMessenger");
-	        primaryStage.setScene(new Scene(root, 600, 400));
+	        primaryStage.setScene(new Scene(root, 300, 400));
 	        primaryStage.show();
 
 	    }
