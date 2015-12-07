@@ -185,4 +185,18 @@ public class Controller {
 			}
 		});
 	}
+
+	@FXML
+	private void trickUpdate() {
+		tabPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (aPlay.isDone()) {
+					playButtons();
+				} else {
+					pauseButtons();
+				}
+			}
+		});
+	}
 }
