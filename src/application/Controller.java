@@ -1,11 +1,15 @@
 package application;
 
+import java.awt.Insets;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import Audio.AudioCapture;
 import Audio.AudioPlay;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.shape.*;
 
 
@@ -18,6 +22,8 @@ public class Controller {
 	Button record;
 	@FXML
 	Button stop;
+	@FXML
+	Button share;
 	@FXML
 	Shape play;
 	@FXML
@@ -42,6 +48,7 @@ public class Controller {
 		pause.setDisable(true);
 		pause1.setVisible(false);
 		pause1.setDisable(true);
+	
 	}
 	
 	
@@ -70,11 +77,7 @@ public class Controller {
 		String name = displayAudios.getSelectionModel().getSelectedItem();
 		if (!name.equals("")) {
 			aPlay.audioPlay(name);
-			if (aPlay.isDone()) {
-				playButtons();
-			} else {
-				pauseButtons();
-			}
+			pauseButtons();
 		}
 	}
 
@@ -109,10 +112,11 @@ public class Controller {
 		for (File file : files) {
 		    if (file.isFile() && file.getName().equals(name)) {
 		    	file.delete();
+		    	displayAudios.getItems().remove(name);
 		    	return;
 		    }
 		}
-		refresh();
+		
 	}
 	
 	@FXML
@@ -126,5 +130,15 @@ public class Controller {
 		        displayAudios.getItems().add(file.getName());
 		    }
 		}
+	}
+	
+	@FXML
+	void IPAlert(){
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Share an Audio");
+		dialog.setContentText("IP Address:");
+		dialog.setHeaderText("Enter the required IP Address below");
+		dialog.showAndWait();
+	
 	}
 }
