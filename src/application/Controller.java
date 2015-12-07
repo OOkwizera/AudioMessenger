@@ -62,6 +62,8 @@ public class Controller {
 	TextField audioName;
 	@FXML
 	ListView<String> displayAudios;
+	@FXML
+	Text timerText;
 
 	long startTimeNano;
 
