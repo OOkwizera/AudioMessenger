@@ -4,8 +4,12 @@ import java.io.File;
 
 import Audio.AudioCapture;
 import Audio.AudioPlay;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.*;
 
 
@@ -126,5 +130,18 @@ public class Controller {
 		        displayAudios.getItems().add(file.getName());
 		    }
 		}
+	}
+
+	@FXML
+	private void delFile() {
+		displayAudios.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode().equals(KeyCode.BACK_SPACE)) {
+					int fileIdx = displayAudios.getSelectionModel().getSelectedIndex();
+					displayAudios.getItems().remove(fileIdx);
+				}
+			}
+		});
 	}
 }

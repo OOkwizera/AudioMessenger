@@ -38,8 +38,8 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ListView fx:id="displayAudios" prefHeight="200.0" prefWidth="143.0" />
-                        <Button fx:id="discard" mnemonicParsing="false" onAction="#deleteAudio" prefHeight="27.0" prefWidth="21.0" text="-" />
+                        <ListView fx:id="displayAudios" onKeyReleased="#delFile" prefHeight="200.0" prefWidth="143.0" />
+                        <Button fx:id="discard" mnemonicParsing="false" onAction="#deleteAudio" prefHeight="33.0" prefWidth="74.0" text="DELETE" />
                      </children>
                   </VBox>
                   <Polygon fx:id="play" fill="DODGERBLUE" layoutX="223.0" layoutY="98.0" onMouseClicked="#play" rotate="90.0" scaleX="0.44" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
