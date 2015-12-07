@@ -71,19 +71,14 @@ public class AudioPlay {
         clip.start();
     }
 
-    private long getPos() {
-        return clip.getMicrosecondPosition();
-    }
     public boolean isDone() {
         long clipLen = clip.getMicrosecondLength();
         long clipPos = clip.getMicrosecondPosition();
-        while (clipPos < clipLen) {
-            clipPos = getPos();
-            if (clipPos >= clipLen) {
-                return true;
-            }
+        if (clipPos >= clipLen) {
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     public boolean playing() {

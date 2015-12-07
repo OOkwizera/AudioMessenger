@@ -4,6 +4,7 @@ import java.awt.Insets;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import Audio.AudioCapture;
 import Audio.AudioPlay;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.*;
 
@@ -23,22 +25,23 @@ public class Controller {
 	AudioCapture audio = new AudioCapture();
 	AudioPlay aPlay = new AudioPlay();
 	
-	AnimationTimer animeTimer = new AnimationTimer() {
-		@Override
-		public void handle(long now) {	
-			
-        	long curTimeNano = System.nanoTime();
-        	if (curTimeNano > lastTimeFPS + 1000000000) {
-        		long seconds = (TimeUnit.SECONDS.convert(now - startTimeNano, TimeUnit.NANOSECONDS) % 60);
-        		long minutes = TimeUnit.MINUTES.convert(now - startTimeNano, TimeUnit.NANOSECONDS);
-        		timerText.setText(String.format("%02d:%02d", minutes, seconds));
-        		        		
-        		lastTimeFPS = curTimeNano;
-        	}
-        }
-        long lastTimeFPS = 0;
-	};
-	
+//	AnimationTimer animeTimer = new AnimationTimer() {
+//		@Override
+//		public void handle(long now) {
+//
+//        	long curTimeNano = System.nanoTime();
+//        	if (curTimeNano > lastTimeFPS + 1000000000) {
+//        		long seconds = (TimeUnit.SECONDS.convert(now - startTimeNano, TimeUnit.NANOSECONDS) % 60);
+//        		long minutes = TimeUnit.MINUTES.convert(now - startTimeNano, TimeUnit.NANOSECONDS);
+//        		timerText.setText(String.format("%02d:%02d", minutes, seconds));
+//
+//        		lastTimeFPS = curTimeNano;
+//        	}
+//        }
+//        long lastTimeFPS = 0;
+//	};
+
+
 	@FXML
 	Button record;
 	@FXML
@@ -70,7 +73,6 @@ public class Controller {
 		pause.setDisable(true);
 		pause1.setVisible(false);
 		pause1.setDisable(true);
-	
 	}
 	
 	
@@ -82,15 +84,15 @@ public class Controller {
 		} else {
 			audio.setAudioFileName("Unknown");
 		}
-		startTimeNano = System.nanoTime();
-		animeTimer.start();
+		//startTimeNano = System.nanoTime();
+		//animeTimer.start();
 		
 		refresh();
 	}
 	
 	@FXML
 	void no() {
-		animeTimer.stop();
+		//animeTimer.stop();
 		audio.endCapture();
 	}
 	
@@ -101,9 +103,13 @@ public class Controller {
 	@FXML
 	void play() {
 		String name = displayAudios.getSelectionModel().getSelectedItem();
-		if (!name.equals("")) {
-			aPlay.audioPlay(name);
-			pauseButtons();
+		try {
+			if (!name.equals("")) {
+				pauseButtons();
+				aPlay.audioPlay(name);
+			}
+		} catch (NullPointerException e) {
+			System.out.println("Please select a file to play.");
 		}
 	}
 
@@ -174,8 +180,7 @@ public class Controller {
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode().equals(KeyCode.BACK_SPACE)) {
-					int fileIdx = displayAudios.getSelectionModel().getSelectedIndex();
-					displayAudios.getItems().remove(fileIdx);
+					deleteAudio();
 				}
 			}
 		});
