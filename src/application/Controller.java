@@ -18,6 +18,22 @@ public class Controller {
 	AudioCapture audio = new AudioCapture();
 	AudioPlay aPlay = new AudioPlay();
 	
+	AnimationTimer animeTimer = new AnimationTimer() {
+		@Override
+		public void handle(long now) {	
+			
+        	long curTimeNano = System.nanoTime();
+        	if (curTimeNano > lastTimeFPS + 1000000000) {
+        		long seconds = (TimeUnit.SECONDS.convert(now - startTimeNano, TimeUnit.NANOSECONDS) % 60);
+        		long minutes = TimeUnit.MINUTES.convert(now - startTimeNano, TimeUnit.NANOSECONDS);
+        		timerText.setText(String.format("%02d:%02d", minutes, seconds));
+        		        		
+        		lastTimeFPS = curTimeNano;
+        	}
+        }
+        long lastTimeFPS = 0;
+	};
+	
 	@FXML
 	Button record;
 	@FXML
@@ -39,6 +55,7 @@ public class Controller {
 	@FXML
 	ListView<String> displayAudios;
 
+	long startTimeNano;
 
 	@FXML
 	void initialize() {
@@ -60,11 +77,15 @@ public class Controller {
 		} else {
 			audio.setAudioFileName("Unknown");
 		}
+		startTimeNano = System.nanoTime();
+		animeTimer.start();
+		
 		refresh();
 	}
 	
 	@FXML
 	void no() {
+		animeTimer.stop();
 		audio.endCapture();
 	}
 	
