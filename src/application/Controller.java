@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import Audio.AudioCapture;
 import Audio.AudioPlay;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
