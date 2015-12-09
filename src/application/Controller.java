@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.*;
+import javafx.scene.text.Text;
 
 
 public class Controller {
@@ -110,7 +111,7 @@ public class Controller {
 				pauseButtons();
 				aPlay.audioPlay(name);
 			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			System.out.println("Please select a file to play.");
 		}
 	}
@@ -142,7 +143,7 @@ public class Controller {
 	@FXML
 	void deleteAudio() {
 		String name = displayAudios.getSelectionModel().getSelectedItem();
-		File[] files = new File(System.getProperty("user.dir") + "/src/AudioFiles" ).listFiles();
+		File[] files = new File(System.getProperty("user.dir") + "/src/audioFiles" ).listFiles();
 		for (File file : files) {
 		    if (file.isFile() && file.getName().equals(name)) {
 		    	file.delete();
@@ -156,13 +157,14 @@ public class Controller {
 	@FXML
 	void refresh () {
 		displayAudios.getItems().clear();
-		File[] files = new File(System.getProperty("user.dir") + "/src/AudioFiles" ).listFiles();
+		File[] files = new File(System.getProperty("user.dir") + "/src/audioFiles" ).listFiles();
 		//If this pathname does not denote a directory, then listFiles() returns null. 
-
-		for (File file : files) {
-		    if (file.isFile()) {
-		        displayAudios.getItems().add(file.getName());
-		    }
+		if (files.length != 0) {
+			for (File file : files) {
+			    if (file.isFile()) {
+			        displayAudios.getItems().add(file.getName());
+			    }
+			}
 		}
 	}
 	

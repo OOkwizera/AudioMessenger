@@ -78,12 +78,6 @@ public class AudioPlay {
             return true;
         } else {
             return false;
-<<<<<<< HEAD
-        } 
-    }
-
-}
-=======
         }
     }
 
@@ -96,4 +90,3 @@ public class AudioPlay {
     }
 
 }
->>>>>>> 3b9e7609670bda2e07bfa02c1e090c3783a59e37
