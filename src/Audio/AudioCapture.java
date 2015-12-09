@@ -28,7 +28,7 @@ public class AudioCapture {
 		return audioFormat;
 	}
 	
-	public void start() throws InterruptedException {
+	public void start(int time) throws InterruptedException {
 		try {
 			AudioFormat audioFormat = newFormat();
 			DataLine.Info info = new DataLine.Info(TargetDataLine.class, audioFormat);
@@ -50,7 +50,7 @@ public class AudioCapture {
 			};
 			
 			thread.start();
-			Thread.sleep(15000);
+			Thread.sleep(time * 1000);
 			line.stop();
 			line.close();
 				

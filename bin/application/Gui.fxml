@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#trickUpdate" prefHeight="343.0" prefWidth="290.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="290.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
   <tabs>
     <Tab text="New">
       <content>
@@ -16,14 +16,8 @@
                <children>
                   <Circle fill="WHITE" layoutX="145.0" layoutY="166.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
                   <Circle fill="#f52917" layoutX="145.0" layoutY="166.0" onMouseClicked="#yes" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-                  <TextField fx:id="audioName" layoutX="71.0" layoutY="28.0" prefHeight="29.0" prefWidth="148.0" promptText="Name your Recording" />
-                  <Text layoutX="109.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00" wrappingWidth="71.21875">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Text>
-                  <Button fx:id="record" layoutX="217.0" layoutY="59.0" mnemonicParsing="false" onAction="#yes" onMouseClicked="#yes" text="Start" />
-                  <Button fx:id="stop" layoutX="218.0" layoutY="223.0" mnemonicParsing="false" onAction="#no" text="Stop" />
+                  <TextField fx:id="audioName" layoutX="67.0" layoutY="27.0" prefHeight="29.0" prefWidth="157.0" promptText="Name your Recording" />
+                  <TextField fx:id="timeInterval" layoutX="67.0" layoutY="73.0" prefHeight="29.0" prefWidth="157.0" promptText="Recording Time (s)" />
                </children></AnchorPane>
       </content>
     </Tab>
@@ -52,7 +46,7 @@
                       <Double fx:value="-60.0" />
                     </points>
                   </Polygon>
-                  <Button layoutX="189.0" layoutY="166.0" mnemonicParsing="false" text="Share" />
+                  <Button layoutX="189.0" layoutY="166.0" mnemonicParsing="false" onAction="#shareAudio" text="Share" />
                   <Rectangle fx:id="pause" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="209.0" layoutY="67.0" onMouseClicked="#pauseSound" stroke="BLACK" strokeType="INSIDE" width="13.0" />
                   <Rectangle fx:id="pause1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="223.0" layoutY="67.0" onMouseClicked="#pauseSound" stroke="BLACK" strokeType="INSIDE" width="13.0" />
                </children>
