@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.BorderPane;
+
 
 
 public class Main extends Application {
@@ -16,7 +16,7 @@ public class Main extends Application {
 	        primaryStage.setTitle("AudioMessenger");
 	        primaryStage.setScene(new Scene(root, 300, 400));
 	        primaryStage.show();
-
+	        primaryStage.setOnCloseRequest(event -> System.exit(0));
 	    }
 	
 	public static void main(String[] args) {

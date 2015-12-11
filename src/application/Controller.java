@@ -1,4 +1,5 @@
 package application;
+import application.net.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -10,38 +11,19 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import Audio.AudioCapture;
 import Audio.AudioPlay;
-import application.net.Connection;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 
 
 
 public class Controller {
-	private int time;
 	AudioCapture audio = new AudioCapture();
 	AudioPlay aPlay = new AudioPlay();
 	Connection connect = new Connection();
-	
-//	AnimationTimer animeTimer = new AnimationTimer() {
-//		@Override
-//		public void handle(long now) {
-//
-//        	long curTimeNano = System.nanoTime();
-//        	if (curTimeNano > lastTimeFPS + 1000000000) {
-//        		long seconds = (TimeUnit.SECONDS.convert(now - startTimeNano, TimeUnit.NANOSECONDS) % 60);
-//        		long minutes = TimeUnit.MINUTES.convert(now - startTimeNano, TimeUnit.NANOSECONDS);
-//        		timerText.setText(String.format("%02d:%02d", minutes, seconds));
-//
-//        		lastTimeFPS = curTimeNano;
-//        	}
-//        }
-//        long lastTimeFPS = 0;
-//	};
-
 
 	@FXML
 	Button record;
@@ -65,13 +47,18 @@ public class Controller {
 	TextField timeInterval;
 	@FXML
 	ListView<String> displayAudios;
+	@FXML
+	Shape square;
+	@FXML
+	Shape circle;
 
-	long startTimeNano;
 
 	@FXML
 	void initialize() {
 		tabPane.autosize();
 		refresh();
+		square.setVisible(false);
+		square.setDisable(true);
 		pause.setVisible(false);
 		pause.setDisable(true);
 		pause1.setVisible(false);
@@ -92,36 +79,35 @@ public class Controller {
 
 			}
 		}).start();
-		
+
 	}
-	
-	
+
+
 	@FXML
-	void yes() throws InterruptedException {
-		if (!timeInterval.getText().matches("\\d+")) {
-			time = 15;
-			timeInterval.setText("15 seconds automatically");
-		} else {
-			time = Integer.parseInt(timeInterval.getText());
-		}
-		audio.start(time);
-		if (!getAudioName().equals("")) {
-			audio.setAudioFileName(getAudioName());
-		} else {
-			audio.setAudioFileName("Unknown");
-		}
-		//startTimeNano = System.nanoTime();
-		//animeTimer.start();
-		
+	void record() throws InterruptedException {
+		circle.setVisible(false);
+		circle.setDisable(true);
+		square.setDisable(false);
+		square.setVisible(true);
+		String name = getAudioName();
+		audio.captureAudio(name);
+		audio.setAudioFileName(name);
+
 		refresh();
 	}
-	
+
 	@FXML
-	void no() {
-		//animeTimer.stop();
-		audio.endCapture();
+	void stop() {
+
+		square.setDisable(true);
+		square.setVisible(false);
+		circle.setVisible(true);
+		circle.setDisable(false);
+		audio.setStopCapture();
+		audioName.clear();
+		refresh();
 	}
-	
+
 	String getAudioName() {
 		return audioName.getText();
 	}
@@ -162,36 +148,36 @@ public class Controller {
 		pause1.setDisable(false);
 		pause1.setVisible(true);
 	}
-	
+
 	@FXML
 	void deleteAudio() {
 		String name = displayAudios.getSelectionModel().getSelectedItem();
 		File[] files = new File(System.getProperty("user.dir") + "/src/AudioFiles" ).listFiles();
 		for (File file : files) {
-		    if (file.isFile() && file.getName().equals(name)) {
-		    	file.delete();
-		    	displayAudios.getItems().remove(name);
-		    	return;
-		    }
+			if (file.isFile() && file.getName().equals(name)) {
+				file.delete();
+				displayAudios.getItems().remove(name);
+				return;
+			}
 		}
-		
+
 	}
-	
-	
+
+
 	void refresh () {
 		displayAudios.getItems().clear();
 		File[] files = new File(System.getProperty("user.dir") + "/src/AudioFiles" ).listFiles();
-		//If this pathname does not denote a directory, then listFiles() returns null. 
+		//If this pathname does not denote a directory, then listFiles() returns null.
 
 		for (File file : files) {
-		    if (file.isFile()) {
-		        displayAudios.getItems().add(file.getName());
-		    }
+			if (file.isFile()) {
+				displayAudios.getItems().add(file.getName());
+			}
 		}
 	}
-	
+
 	@FXML
-	String getIPAddress() { //pulls a dialog box that asks the user to enter IP Address and returns the entered string.
+	String getIPAddress() { //pulls a dialog box up that asks the user to enter IP Address and returns the entered string.
 		String ipAddress = "";
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Share an Audio");
@@ -199,46 +185,35 @@ public class Controller {
 		dialog.setHeaderText("Enter the required IP Address below");
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()){
-		    ipAddress = result.get();
+			ipAddress  = result.get();
+			return ipAddress;
+		} else {
+			return ipAddress;
 		}
-		return ipAddress;
-	
+
+
 	}
-	
-	@FXML
-	String getReceivedAudioName() { // pulls a pop box requesting the user to name the received audio file.
-		String name = "";
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.setTitle("Receiving an AudioFile");
-		dialog.setContentText("Rename the file:");
-		dialog.setHeaderText("An audio file was sent to you" +"/n" + "You must give it a name!");
-		Optional<String> result = dialog.showAndWait();
-		if (result.isPresent()){
-		    name = result.get();
-		}
-		return name;
-	}
-	
+
 	@FXML
 	String getEncodedText() {  // returns a string that represents the selected audio file.
 		String name = displayAudios.getSelectionModel().getSelectedItem();
 		try {
 			File audioFile = new File (getFileNamePath(name));
 			byte[] bytes = FileUtils.readFileToByteArray(audioFile);
-		    String encoded = Base64.encode(bytes);  
-		    return encoded + "\t" + name;
+			String encoded = Base64.encode(bytes);
+			return encoded + "\t" + name;
 		} catch (Exception e)  {
 			e.printStackTrace();
 		}
 		return name;
 	}
-	
+
 	String getFileNamePath(String fileName) { // takes a filename and returns the full filename path.
 		return System.getProperty("user.dir") + "/src/AudioFiles/" + fileName;
 	}
-	
+
 	public void decode (String str, String fileName) { //decodes a string to .wav file
-		
+
 		try {
 			byte[] decoded = Base64.decode(str);
 			FileOutputStream os = new FileOutputStream(fileName, true);
@@ -248,16 +223,20 @@ public class Controller {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML
-	void shareAudio() { 
+	void shareAudio() {
 		String ipAddress = getIPAddress();
-		System.out.println(ipAddress);
+		if (ipAddress.equals("")) {
+			return;
+		} else if (!ipAddress.matches("(\\d+.){3}\\d+")) { //checks the IP Address pattern
+			badNews();
+			return;
+		}
 		String audioString = getEncodedText();
-		System.out.println(audioString);
 		connect.handShake(audioString, ipAddress);
 	}
-	
+
 
 	@FXML
 	private void delFile() {
@@ -271,4 +250,15 @@ public class Controller {
 		});
 	}
 
+	@FXML
+	void badNews() {
+		Alert bad  = new Alert(Alert.AlertType.ERROR);
+		bad.setContentText("Wrong IP Address!");
+		bad.setHeaderText(null);
+		bad.showAndWait();
+	}
+
+
 }
+
+

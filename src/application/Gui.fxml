@@ -9,49 +9,49 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="343.0" prefWidth="290.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
-  <tabs>
-    <Tab text="New">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Circle fill="WHITE" layoutX="145.0" layoutY="166.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fill="#f52917" layoutX="145.0" layoutY="166.0" onMouseClicked="#yes" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-                  <TextField fx:id="audioName" layoutX="67.0" layoutY="27.0" prefHeight="29.0" prefWidth="157.0" promptText="Name your Recording" />
-                  <TextField fx:id="timeInterval" layoutX="67.0" layoutY="73.0" prefHeight="29.0" prefWidth="157.0" promptText="Recording Time (s)" />
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Recordings">
-         <content>
-            <Pane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <VBox layoutX="14.0" layoutY="22.0" prefHeight="288.0" prefWidth="147.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Audio Files" textAlignment="CENTER" wrappingWidth="147.8125">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Text>
-                        <ListView fx:id="displayAudios" onKeyReleased="#delFile" prefHeight="200.0" prefWidth="143.0" />
-                        <Button fx:id="discard" mnemonicParsing="false" onAction="#deleteAudio" prefHeight="33.0" prefWidth="74.0" text="DELETE" />
-                     </children>
-                  </VBox>
-                  <Polygon fx:id="play" fill="DODGERBLUE" layoutX="223.0" layoutY="98.0" onMouseClicked="#play" rotate="90.0" scaleX="0.44" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
-                    <points>
-                      <Double fx:value="-50.0" />
-                      <Double fx:value="40.0" />
-                      <Double fx:value="50.0" />
-                      <Double fx:value="40.0" />
-                      <Double fx:value="0.0" />
-                      <Double fx:value="-60.0" />
-                    </points>
-                  </Polygon>
-                  <Button layoutX="189.0" layoutY="166.0" mnemonicParsing="false" onAction="#shareAudio" text="Share" />
-                  <Rectangle fx:id="pause" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="209.0" layoutY="67.0" onMouseClicked="#pauseSound" stroke="BLACK" strokeType="INSIDE" width="13.0" />
-                  <Rectangle fx:id="pause1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="223.0" layoutY="67.0" onMouseClicked="#pauseSound" stroke="BLACK" strokeType="INSIDE" width="13.0" />
-               </children>
-            </Pane>
-         </content>
-    </Tab>
-  </tabs>
+    <tabs>
+        <Tab text="New">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <Circle fill="WHITE" layoutX="145.0" layoutY="155.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fx:id="circle" fill="#f52917" layoutX="145.0" layoutY="155.0" onMouseClicked="#record" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+                        <TextField fx:id="audioName" layoutX="67.0" layoutY="44.0" prefHeight="29.0" prefWidth="157.0" promptText="Name your Recording" />
+                  <Rectangle fx:id="square" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="26.0" layoutX="132.0" layoutY="142.0" onMouseClicked="#stop" stroke="BLACK" strokeType="INSIDE" width="27.0" />
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Recordings">
+            <content>
+                <Pane prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <VBox layoutX="14.0" layoutY="22.0" prefHeight="288.0" prefWidth="147.0">
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Audio Files" textAlignment="CENTER" wrappingWidth="147.8125">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Text>
+                                <ListView fx:id="displayAudios" onKeyReleased="#delFile" prefHeight="200.0" prefWidth="143.0" />
+                                <Button fx:id="discard" mnemonicParsing="false" onAction="#deleteAudio" prefHeight="33.0" prefWidth="74.0" text="DELETE" />
+                            </children>
+                        </VBox>
+                        <Polygon fx:id="play" fill="DODGERBLUE" layoutX="223.0" layoutY="98.0" onMouseClicked="#play" rotate="90.0" scaleX="0.44" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
+                            <points>
+                                <Double fx:value="-50.0" />
+                                <Double fx:value="40.0" />
+                                <Double fx:value="50.0" />
+                                <Double fx:value="40.0" />
+                                <Double fx:value="0.0" />
+                                <Double fx:value="-60.0" />
+                            </points>
+                        </Polygon>
+                        <Button layoutX="189.0" layoutY="166.0" mnemonicParsing="false" onAction="#shareAudio" text="Share" />
+                        <Rectangle fx:id="pause" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="209.0" layoutY="67.0" onMouseClicked="#pauseSound" stroke="BLACK" strokeType="INSIDE" width="13.0" />
+                        <Rectangle fx:id="pause1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="42.0" layoutX="223.0" layoutY="67.0" onMouseClicked="#pauseSound" stroke="BLACK" strokeType="INSIDE" width="13.0" />
+                    </children>
+                </Pane>
+            </content>
+        </Tab>
+    </tabs>
 </TabPane>
